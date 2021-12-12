@@ -9,7 +9,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("License plate monitoring and payment system")
 
 
     color: Constants.backgroundColor
@@ -23,6 +23,10 @@ Window {
         TabButton {
             width: implicitWidth
             text: qsTr("Discover")
+        }
+        TabButton {
+            width: implicitWidth
+            text: qsTr("Payment")
         }
     }
 
