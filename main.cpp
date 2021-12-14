@@ -4,6 +4,7 @@
 #include <QLocale>
 #include <QTranslator>
 
+#include <QQmlComponent>
 
 
 int main(int argc, char *argv[])
@@ -15,9 +16,12 @@ int main(int argc, char *argv[])
 
 
     QQmlApplicationEngine engine;
-    const QUrl url(QStringLiteral("qrc:/main.qml"));
 
-    engine.load(url);
+    QQmlComponent component(&engine, QUrl(QLatin1String("qrc:/main.qml")));
+
+    QObject *mainPage = component.create();
+    QObject *item = mainPage->findChild<QObject *>("buttonTest");
+    item->setProperty("text", "Text from C++");
 
     return app.exec();
 }

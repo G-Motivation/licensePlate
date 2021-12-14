@@ -16,6 +16,7 @@ Window {
     TabBar {
         id: bar
         width: parent.width
+
         TabButton {
             width: implicitWidth
             text: qsTr("Home")
@@ -35,12 +36,28 @@ Window {
         currentIndex: bar.currentIndex
         Item {
             id: homeTab
+            Text {
+                text: "<b>1</b> <i>World!</i>"
+            }
         }
         Item {
             id: discoverTab
+            Text {
+                text: "<b>2</b> <i>World!</i>"
+            }
+
         }
         Item {
             id: activityTab
+            Button {
+                objectName: "buttonTest"
+                text: "Open"
+            }
+            Text {
+                text: "<b>3</b> <i>World!</i>"
+            }
+
+
         }
     }
 //    Text {
