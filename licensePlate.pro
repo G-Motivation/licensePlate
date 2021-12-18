@@ -25,4 +25,13 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
+INCLUDEPATH += OpenCV\install\include
+win32: {
+LIBS += $$PWD\OpenCV\bin\libopencv_*.dll
+}
+mac: {
+LIBS += $$PWD\OpenCV\lib\libopencv_*.dll.a
+}
+
+
 DISTFILES +=
