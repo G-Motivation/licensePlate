@@ -8,31 +8,51 @@
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+
+#include <QLocale>
+#include <QTranslator>
 #define TRUN_ON_OPENCV 0
 
 int main(int argc, char *argv[])
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
+
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QGuiApplication app(argc, argv);
-
-
     QQmlApplicationEngine engine;
 
     QQmlComponent component(&engine, QUrl(QLatin1String("qrc:/main.qml")));
-
     QObject *mainPage = component.create();
     QObject *item = mainPage->findChild<QObject *>("buttonTest");
     item->setProperty("text", "Text from C++");
+#else
+     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QGuiApplication app(argc, argv);
 
-#if TRUN_ON_OPENCV
-    // read an image
-    cv::Mat image = cv::imread("C:\\Users\\willy\\Desktop\\9b060ac5f7e3434585b5c69000318898.jpeg", 1);
-    // create image window named "My Image"
-    cv::namedWindow("My Image");
-    // show the image on window
-    cv::imshow("My Image", image);
+    QTranslator translator;
+    const QStringList uiLanguages = QLocale::system().uiLanguages();
+    for (const QString &locale : uiLanguages) {
+        const QString baseName = "licensePlate_" + QLocale(locale).name();
+        if (translator.load(":/i18n/" + baseName)) {
+            app.installTranslator(&translator);
+            break;
+        }
+    }
+
+    QQmlApplicationEngine engine;
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
+    engine.load(url);
 #endif
+
+
     return app.exec();
 }
+
+
