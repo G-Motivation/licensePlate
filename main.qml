@@ -31,16 +31,58 @@ Window {
         }
     }
 
-     Item {
+
+     Item
+     {
+          id:cameraList
+          anchors.top: bar.bottom
+          property int itemW : 100
+          property int itemH : 100
+          width: parent.width -  itemW
+          height: parent.height - itemH
+          Label
+          {
+              id:label1
+              anchors.left: parent.left
+              width:120
+              text: qsTr("Choose camera device:")
+          }
+
+         ComboBox
+         {
+             id:deviceCom
+             model: QtMultimedia.availableCameras
+             anchors.left: label1.right
+             textRole: "displayName";
+             currentIndex: -1;
+             onCurrentIndexChanged:
+             {
+                 if (currentIndex != -1)//Start camera if index was changed
+                 {
+                     camera.deviceId= QtMultimedia.availableCameras[currentIndex].deviceId;
+                     camera.start();
+                 }
+             }
+
+         }
+     }
+
+     Item
+     {
          property int itemW : 100
          property int itemH : 100
          width: parent.width - itemW
          height: parent.height - itemH
          anchors.centerIn: parent
-         Camera {
-             id: camera
-             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
 
+         Camera
+         {
+             id: camera; deviceId: "";
+             Component.onCompleted:
+             {
+                 camera.stop();
+             }
+             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceFlash
              exposure {//Methods and properties for adjusting exposure (aperture, shutter speed etc).
                  exposureCompensation: -1.0
                  exposureMode: Camera.ExposurePortrait
@@ -56,14 +98,15 @@ Window {
          }
 
          VideoOutput {
+             id:videoOuput
              source: camera
              anchors.fill: parent
-             focus : visible // to receive focus and capture key events when visible
+             focus : visible  // to receive focus and capture key events when visible
+
          }
 
          Image {
              id: photoPreview
          }
      }
-
 }
