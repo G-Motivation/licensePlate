@@ -1,4 +1,6 @@
-QT       += core gui
+QT       += core gui \
+            multimedia \
+            multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -13,14 +15,15 @@ SOURCES += \
     licenseplatedialog.cpp
 
 HEADERS += \
-    licenseplatedialog.h
+    licenseplatedialog.h \
+    ui_licenseplatedialog.h
 
 FORMS += \
     licenseplatedialog.ui
 
 win32: {
-    LIBS += OpenCV\bin\libopencv_*.dll
-    INCLUDEPATH += OpenCV\install\include
+    LIBS += ..\OpenCV\bin\libopencv_*.dll
+    INCLUDEPATH += ..\OpenCV\install\include
 }
 
 # Default rules for deployment.
