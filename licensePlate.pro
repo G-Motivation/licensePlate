@@ -9,13 +9,12 @@ CONFIG += c++17
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
+include(./licenseplatedialog.pri)
 
 SOURCES += \
     main.cpp \
-    licenseplatedialog.cpp
 
 HEADERS += \
-    licenseplatedialog.h \
     ui_licenseplatedialog.h
 
 FORMS += \
@@ -24,6 +23,12 @@ FORMS += \
 win32: {
     LIBS += OpenCV\bin\libopencv_*.dll
     INCLUDEPATH += OpenCV\install\include
+}
+
+macx {
+    LIBS += /Users/huangyaode/code/opencv/build_arm64/lib
+
+    INCLUDEPATH += /opt/homebrew/Cellar/opencv/4.5.5_1/include/opencv4
 }
 
 # Default rules for deployment.
