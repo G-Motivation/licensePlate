@@ -22,8 +22,8 @@ FORMS += \
     licenseplatedialog.ui
 
 win32: {
-    LIBS += ..\OpenCV\bin\libopencv_*.dll
-    INCLUDEPATH += ..\OpenCV\install\include
+    LIBS += OpenCV\bin\libopencv_*.dll
+    INCLUDEPATH += OpenCV\install\include
 }
 
 # Default rules for deployment.
