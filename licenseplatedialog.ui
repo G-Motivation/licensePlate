@@ -6,74 +6,87 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>810</width>
     <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>licensePlateDialog</string>
   </property>
-  <widget class="QScrollArea" name="m_camArea">
+  <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>50</y>
-     <width>551</width>
-     <height>291</height>
+     <x>10</x>
+     <y>10</y>
+     <width>771</width>
+     <height>581</height>
     </rect>
    </property>
-   <property name="widgetResizable">
-    <bool>true</bool>
-   </property>
-   <widget class="QWidget" name="scrollAreaWidgetContents">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>549</width>
-      <height>289</height>
-     </rect>
-    </property>
+   <widget class="QWidget" name="cameraPage">
+    <widget class="QScrollArea" name="m_camArea">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>20</y>
+       <width>551</width>
+       <height>291</height>
+      </rect>
+     </property>
+     <property name="widgetResizable">
+      <bool>true</bool>
+     </property>
+     <widget class="QWidget" name="scrollAreaWidgetContents">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>549</width>
+        <height>289</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>430</y>
+       <width>351</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_btnStart">
+        <property name="text">
+         <string>Camera Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_btnStop">
+        <property name="text">
+         <string>Camera Stop</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </widget>
-  </widget>
-  <widget class="QWidget" name="">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>370</y>
-     <width>351</width>
-     <height>71</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
-    <item>
-     <spacer name="horizontalSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>40</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
-     <widget class="QPushButton" name="m_btnStart">
-      <property name="text">
-       <string>Camera Start</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QPushButton" name="m_btnStop">
-      <property name="text">
-       <string>Camera Stop</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
+   <widget class="QWidget" name="payPage"/>
   </widget>
  </widget>
  <resources/>

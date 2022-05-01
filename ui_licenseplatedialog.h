@@ -16,6 +16,7 @@
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QScrollArea>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QStackedWidget>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -23,47 +24,59 @@ QT_BEGIN_NAMESPACE
 class Ui_licensePlateDialog
 {
 public:
+    QStackedWidget *stackedWidget;
+    QWidget *cameraPage;
     QScrollArea *m_camArea;
     QWidget *scrollAreaWidgetContents;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout;
     QSpacerItem *horizontalSpacer;
     QPushButton *m_btnStart;
     QPushButton *m_btnStop;
+    QWidget *payPage;
 
     void setupUi(QDialog *licensePlateDialog)
     {
         if (licensePlateDialog->objectName().isEmpty())
             licensePlateDialog->setObjectName(QString::fromUtf8("licensePlateDialog"));
-        licensePlateDialog->resize(800, 600);
-        m_camArea = new QScrollArea(licensePlateDialog);
+        licensePlateDialog->resize(810, 600);
+        stackedWidget = new QStackedWidget(licensePlateDialog);
+        stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
+        stackedWidget->setGeometry(QRect(10, 10, 771, 581));
+        cameraPage = new QWidget();
+        cameraPage->setObjectName(QString::fromUtf8("cameraPage"));
+        m_camArea = new QScrollArea(cameraPage);
         m_camArea->setObjectName(QString::fromUtf8("m_camArea"));
-        m_camArea->setGeometry(QRect(150, 50, 551, 291));
+        m_camArea->setGeometry(QRect(120, 20, 551, 291));
         m_camArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName(QString::fromUtf8("scrollAreaWidgetContents"));
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 549, 289));
         m_camArea->setWidget(scrollAreaWidgetContents);
-        widget = new QWidget(licensePlateDialog);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(350, 370, 351, 71));
-        horizontalLayout = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(cameraPage);
+        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
+        layoutWidget->setGeometry(QRect(170, 430, 351, 71));
+        horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        m_btnStart = new QPushButton(widget);
+        m_btnStart = new QPushButton(layoutWidget);
         m_btnStart->setObjectName(QString::fromUtf8("m_btnStart"));
 
         horizontalLayout->addWidget(m_btnStart);
 
-        m_btnStop = new QPushButton(widget);
+        m_btnStop = new QPushButton(layoutWidget);
         m_btnStop->setObjectName(QString::fromUtf8("m_btnStop"));
 
         horizontalLayout->addWidget(m_btnStop);
 
+        stackedWidget->addWidget(cameraPage);
+        payPage = new QWidget();
+        payPage->setObjectName(QString::fromUtf8("payPage"));
+        stackedWidget->addWidget(payPage);
 
         retranslateUi(licensePlateDialog);
 

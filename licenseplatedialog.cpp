@@ -1,5 +1,7 @@
 #include "licenseplatedialog.h"
 #include "ui_licenseplatedialog.h"
+#define cameraPage 0
+#define payPage 1
 
 licensePlateDialog::licensePlateDialog(QWidget *parent)
     : QDialog(parent)
@@ -15,6 +17,7 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     _layout->addWidget(_cameraViewFinder);
     _layout->setMargin(0);
     ui->m_camArea->setLayout(_layout);
+    ui->stackedWidget->setCurrentIndex(cameraPage);
 
     connect(ui->m_btnStart, &QPushButton::clicked, this, &licensePlateDialog::StartCamera);
     connect(ui->m_btnStop, &QPushButton::clicked, this, &licensePlateDialog::StopCamera);
