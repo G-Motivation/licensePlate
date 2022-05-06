@@ -5,9 +5,23 @@
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 
+#include <gtest/gtest.h>
+#include <gmock/gmock-matchers.h>
+#define TRUN_ON_TEST 0
+using namespace testing;
+
+#if TRUN_ON_TEST
+TEST(Factorial, Empty)
+{
+    EXPECT_EQ(1, 1);
+}
+#endif
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    #if TRUN_ON_TEST
+    ::testing::InitGoogleTest(&argc, argv);
+    #endif
     licensePlateDialog w;
     w.show();
 #if 0
@@ -17,5 +31,8 @@ int main(int argc, char *argv[])
     // show the image on window
     cv::imshow("My Image", image);
 #endif
+    #if TRUN_ON_TEST
+    RUN_ALL_TESTS();
+    #endif
     return a.exec();
 }
