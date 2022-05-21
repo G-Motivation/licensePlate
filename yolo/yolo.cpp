@@ -93,7 +93,8 @@ void YOLO::drawPred(int classId, float conf, int left, int top, int right, int b
 }
 
 void YOLO::detect(Mat& frame) {
-	Mat blob;
+    using ull = unsigned long long;
+    Mat blob;
 	blobFromImage(frame, blob, double(1 / 255.0), Size(this->inpWidth, this->inpHeight), Scalar(0, 0, 0), true, false);
 	// blobFromImage进行预处理：归一化，resize，减去均值，交换绿色和蓝色通道，不进行裁剪
 	this->net.setInput(blob);		// 输入模型
@@ -101,7 +102,7 @@ void YOLO::detect(Mat& frame) {
 	vector<Mat> outs;
 	vector<String> names = this->net.getUnconnectedOutLayersNames();		// 获取网络输出层信息
 	this->net.forward(outs_blob, names);		// 模型的输出结果存入outs_blob，由于我们的yolo模型有两个yolo层，因此输出有两个
-	int i = 0;
+    ull i = 0;
 	for (i = 0; i < outs_blob.size(); i++) {
 		vector<Mat> out;
 		// 我们的onnx的输出是一个维度为 num_samples*1*(num_anchors*grid*grid)*6 的4维度矩阵，这是一个blob类型

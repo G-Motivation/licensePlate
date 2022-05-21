@@ -14,9 +14,11 @@ include(./testQT/gtest_dependency.pri)
 
 SOURCES += \
     main.cpp \
+    yolo\yolo.cpp
 
 HEADERS += \
-    ui_licenseplatedialog.h
+    ui_licenseplatedialog.h\
+    yolo\yolo.h
 
 FORMS += \
     licenseplatedialog.ui

@@ -2,9 +2,6 @@
 
 #include <QApplication>
 
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
 #define TRUN_ON_TEST 0
