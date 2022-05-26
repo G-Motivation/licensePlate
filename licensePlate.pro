@@ -23,6 +23,8 @@ HEADERS += \
 FORMS += \
     licenseplatedialog.ui
 
+LIBS += -lstdc++fs
+
 win32: {
     LIBS += OpenCV\bin\libopencv_*.dll
     INCLUDEPATH += OpenCV\install\include

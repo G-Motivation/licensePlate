@@ -1,15 +1,31 @@
 #include "licenseplatedialog.h"
 #include "ui_licenseplatedialog.h"
+#include <experimental/filesystem>
 #define cameraPage 0
 #define payPage 1
+namespace fs = std::experimental::filesystem::v1;
 
 void licensePlateDialog::detectbyYOLO()
 {
-    CV_DNN_REGISTER_LAYER_CLASS(Exp, ExpLayer);
-    Net_config yolo_nets[1] = {
-        { 0.5f, 0.3f, 320, 320,"coco.names", "yolo-fastest-xl.onnx", "yolo-fastest-xl.onnx", "yolo-fastest-xl" }
-    };
-    YOLO yolo(yolo_nets[0]);
+    try
+    {
+        const std::string YOLO_MODEL = ".//model";
+        fs::path file_model((YOLO_MODEL+ "//yolo-fastest-xl.onnx").c_str());
+        fs::path file_coco((YOLO_MODEL + "//coco.names").c_str());
+        if (!fs::exists(file_model) && !fs::exists(file_coco))
+            throw fs::filesystem_error("File not exist", std::error_code());
+
+        CV_DNN_REGISTER_LAYER_CLASS(Exp, ExpLayer);
+        Net_config yolo_nets[1] = {
+            { 0.5f, 0.3f, 320, 320, YOLO_MODEL + "//coco.names", YOLO_MODEL+ "//yolo-fastest-xl.onnx",
+            YOLO_MODEL + "yolo-fastest-xl.onnx", YOLO_MODEL + "yolo-fastest-xl" }
+        };
+        YOLO yolo(yolo_nets[0]);
+    }
+    catch(fs::filesystem_error& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
 }
 licensePlateDialog::licensePlateDialog(QWidget *parent)
     : QDialog(parent)
@@ -31,6 +47,7 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     connect(ui->m_btnStart, &QPushButton::clicked, this, &licensePlateDialog::StartCamera);
     connect(ui->m_btnStop, &QPushButton::clicked, this, &licensePlateDialog::StopCamera);
     connect(_imageCapture, SIGNAL(imageCaptured(int,QImage)), this, SLOT(processCapturedImage(int,QImage)));
+    detectbyYOLO();
 }
 
 void licensePlateDialog::StartCamera()
