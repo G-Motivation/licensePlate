@@ -5,11 +5,11 @@
 #define payPage 1
 namespace fs = std::experimental::filesystem::v1;
 
-void licensePlateDialog::detectbyYOLO()
+bool licensePlateDialog::detectbyYOLO()
 {
     try
     {
-        const std::string YOLO_MODEL = ".//model";
+        const std::string YOLO_MODEL = ".//yolo//model";
         fs::path file_model((YOLO_MODEL+ "//yolo-fastest-xl.onnx").c_str());
         fs::path file_coco((YOLO_MODEL + "//coco.names").c_str());
         if (!fs::exists(file_model) && !fs::exists(file_coco))
@@ -20,12 +20,14 @@ void licensePlateDialog::detectbyYOLO()
             { 0.5f, 0.3f, 320, 320, YOLO_MODEL + "//coco.names", YOLO_MODEL+ "//yolo-fastest-xl.onnx",
             YOLO_MODEL + "yolo-fastest-xl.onnx", YOLO_MODEL + "yolo-fastest-xl" }
         };
-        YOLO yolo(yolo_nets[0]);
+        //YOLO yolo(yolo_nets[0]);
     }
     catch(fs::filesystem_error& e)
     {
         std::cerr << e.what() << std::endl;
+        return false;
     }
+    return true;
 }
 licensePlateDialog::licensePlateDialog(QWidget *parent)
     : QDialog(parent)
@@ -47,7 +49,7 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     connect(ui->m_btnStart, &QPushButton::clicked, this, &licensePlateDialog::StartCamera);
     connect(ui->m_btnStop, &QPushButton::clicked, this, &licensePlateDialog::StopCamera);
     connect(_imageCapture, SIGNAL(imageCaptured(int,QImage)), this, SLOT(processCapturedImage(int,QImage)));
-    detectbyYOLO();
+    //detectbyYOLO();
 }
 
 void licensePlateDialog::StartCamera()

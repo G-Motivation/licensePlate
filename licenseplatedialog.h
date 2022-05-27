@@ -24,6 +24,7 @@ public:
 public:
     void StartCamera();
     void StopCamera();
+    bool detectbyYOLO();
 private slots:
     void processCapturedImage(int requestId, const QImage& img);
 private:
@@ -33,7 +34,5 @@ private:
     QCameraViewfinder* _cameraViewFinder = nullptr;
     QVBoxLayout* _layout = nullptr;
     QCameraImageCapture* _imageCapture = nullptr;
-private:
-    void detectbyYOLO();
 };
 #endif // LICENSEPLATEDIALOG_H

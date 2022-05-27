@@ -4,18 +4,14 @@
 
 #include <gtest/gtest.h>
 #include <gmock/gmock-matchers.h>
-#define TRUN_ON_TEST 0
+#define TRUN_ON_TEST 1
 using namespace testing;
 
 #if TRUN_ON_TEST
-bool check()
+TEST(licensePlateDialog, yoloFile)
 {
-    return true;
-}
-TEST(Function, check)
-{
-    EXPECT_EQ(1, 1);
-    EXPECT_TRUE(check());
+    licensePlateDialog w;
+    EXPECT_TRUE(w.detectbyYOLO());
 }
 #endif
 int main(int argc, char *argv[])
@@ -23,7 +19,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     #if TRUN_ON_TEST
     ::testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    ;
     #endif
     licensePlateDialog w;
     w.show();
@@ -34,5 +30,5 @@ int main(int argc, char *argv[])
     // show the image on window
     cv::imshow("My Image", image);
 #endif
-    return a.exec();
+    return (!RUN_ALL_TESTS() && a.exec());
 }
