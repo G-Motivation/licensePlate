@@ -5,10 +5,10 @@
 #define payPage 1
 namespace fs = std::experimental::filesystem::v1;
 
-bool licensePlateDialog::detectbyYOLO()
+bool licensePlateDialog::setUpYOLO( std::shared_ptr<YOLO> yolo)
 {
     try
-    {
+    { 
         const std::string YOLO_MODEL = ".//yolo//model";
         fs::path file_model((YOLO_MODEL+ "//yolo-fastest-xl.onnx").c_str());
         fs::path file_coco((YOLO_MODEL + "//coco.names").c_str());
@@ -20,19 +20,39 @@ bool licensePlateDialog::detectbyYOLO()
             { 0.5f, 0.3f, 320, 320, YOLO_MODEL + "//coco.names", YOLO_MODEL+ "//yolo-fastest-xl.onnx",
             YOLO_MODEL + "yolo-fastest-xl.onnx", YOLO_MODEL + "yolo-fastest-xl" }
         };
-        //YOLO yolo(yolo_nets[0]);
+        if (!yolo) yolo = std::make_shared<YOLO>(yolo_nets[0]);
     }
     catch(fs::filesystem_error& e)
     {
         std::cerr << e.what() << std::endl;
         return false;
     }
+    catch(...)
+    {
+        return false;
+    }
+
     return true;
 }
-licensePlateDialog::licensePlateDialog(QWidget *parent)
-    : QDialog(parent)
-    , ui(new Ui::licensePlateDialog)
+bool licensePlateDialog::detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO> yolo)
 {
+    if (!yolo || img.empty()) return false;
+    const string kWinName = "Deep learning object detection in OpenCV";
+    cv::namedWindow(kWinName, WINDOW_KEEPRATIO);
+
+    auto yolo_model = yolo->getptr();
+    yolo_model->setcapSize(img.cols, img.rows);
+    yolo_model->detect(img);
+    imshow(kWinName, img);
+    waitKey(0);
+    cv::destroyAllWindows();
+
+    return true;
+}
+licensePlateDialog::licensePlateDialog(QWidget* parent)
+    : QDialog(parent)
+{
+    ui = std::make_unique<Ui::licensePlateDialog>();
     ui->setupUi(this);
 
     _camera = new QCamera(this);
@@ -81,7 +101,6 @@ void licensePlateDialog::StopCamera()
 
 void qimage_to_mat(const QImage& image, cv::OutputArray out)
 {
-
     switch(image.format()) {
         case QImage::Format_Invalid:
         {
@@ -125,6 +144,5 @@ void licensePlateDialog::processCapturedImage(int requestId, const QImage& img)
 
 licensePlateDialog::~licensePlateDialog()
 {
-    delete ui;
 }
 

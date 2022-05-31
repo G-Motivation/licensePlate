@@ -19,16 +19,17 @@ class licensePlateDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit licensePlateDialog(QWidget *parent = nullptr);
+    explicit licensePlateDialog(QWidget* parent = nullptr);
     ~licensePlateDialog();
 public:
     void StartCamera();
     void StopCamera();
-    bool detectbyYOLO();
+    bool setUpYOLO(std::shared_ptr<YOLO>);
+    bool detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO>);
 private slots:
     void processCapturedImage(int requestId, const QImage& img);
 private:
-    Ui::licensePlateDialog *ui;
+    std::unique_ptr<Ui::licensePlateDialog> ui;
     QCamera* _camera = nullptr;
     cv::VideoCapture* _videocapture = nullptr;
     QCameraViewfinder* _cameraViewFinder = nullptr;

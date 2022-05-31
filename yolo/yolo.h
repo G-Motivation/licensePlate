@@ -8,6 +8,7 @@
 #include <opencv2/highgui.hpp>
 #include <opencv2/core.hpp>
 #include <opencv2/dnn/layer.details.hpp>
+#include <memory>
 
 using namespace cv;
 using namespace dnn;
@@ -26,11 +27,14 @@ struct Net_config				// 网络配置
 };
 
 
-class YOLO {
+class YOLO : public enable_shared_from_this<YOLO> {
 public:
-	YOLO(Net_config config);				// 构造函数
+    YOLO(Net_config& config);				// 构造函数
 	void detect(Mat& frame);				// 进行检测
-	void setcapSize(int width, int height);		// 获取摄像头的分辨率
+    void setcapSize(int width, int height);		// 获取摄像头的分辨率
+    std::shared_ptr<YOLO> getptr() {
+        return std::shared_ptr<YOLO>(this);
+    }
 private:
 	float confThreshold;			// 置信度门限
 	float nmsThreshold;				// nms门限

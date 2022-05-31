@@ -1,6 +1,6 @@
 #include "yolo.h"
 
-YOLO::YOLO(Net_config config) {
+YOLO::YOLO(Net_config& config) {
 	cout << "Net use " << config.netname << endl;
 	this->confThreshold = config.confThreshold;				// 初始化置信度门限
 	this->nmsThreshold = config.nmsThreshold;				// 初始化nms门限
