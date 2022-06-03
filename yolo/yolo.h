@@ -9,6 +9,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/dnn/layer.details.hpp>
 #include <memory>
+#include <experimental/filesystem>
 
 using namespace cv;
 using namespace dnn;
@@ -81,7 +82,7 @@ public:
 		std::vector<cv::Mat> inputs, outputs;
 		inputs_arr.getMatVector(inputs);
 		outputs_arr.getMatVector(outputs);
-
+        internals_arr.getMatVector(outputs);
 		cv::Mat& inp = inputs[0];
 		cv::Mat& out = outputs[0];
 

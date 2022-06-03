@@ -7,9 +7,8 @@
 #include <QCameraImageCapture>
 #include <QVBoxLayout>
 #include <QCameraInfo>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
 #include <yolo/yolo.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class licensePlateDialog; }
 QT_END_NAMESPACE

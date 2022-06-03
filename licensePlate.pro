@@ -17,6 +17,7 @@ SOURCES += \
     yolo\yolo.cpp
 
 HEADERS += \
+    runyolo.h \
     ui_licenseplatedialog.h\
     yolo\yolo.h
 

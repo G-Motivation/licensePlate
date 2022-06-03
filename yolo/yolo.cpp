@@ -1,6 +1,12 @@
 #include "yolo.h"
+namespace fs = std::experimental::filesystem::v1;
 
 YOLO::YOLO(Net_config& config) {
+    fs::path file_model(config.modelConfiguration.c_str());
+    fs::path file_coco(config.classesFile.c_str());
+    if (!fs::exists(file_model) && !fs::exists(file_coco)) {
+        throw fs::filesystem_error("File not exist", std::error_code());
+     }
 	cout << "Net use " << config.netname << endl;
 	this->confThreshold = config.confThreshold;				// 初始化置信度门限
 	this->nmsThreshold = config.nmsThreshold;				// 初始化nms门限
@@ -12,7 +18,7 @@ YOLO::YOLO(Net_config& config) {
 	string line;
 	while (getline(ifs, line)) this->classes.push_back(line);		// 从coco.name加载类别名称
 
-	this->net = readNetFromONNX(config.modelConfiguration);		// 加载网络文件和权重文件
+    this->net = readNetFromONNX(config.modelConfiguration);		// 加载网络文件和权重文件
 	this->net.setPreferableBackend(DNN_BACKEND_OPENCV);		 // 根据计算机的配置设置加速方法，支持cpu，cuda，fpga，具体可以看源码
 	this->net.setPreferableTarget(DNN_TARGET_CPU);
 }
