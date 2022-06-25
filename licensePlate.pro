@@ -26,14 +26,13 @@ FORMS += \
 
 LIBS += -lstdc++fs
 
-win32: {
-    LIBS += OpenCV\bin\libopencv_*.dll
-    INCLUDEPATH += OpenCV\install\include
+win32 {
+     LIBS += $$PWD/opencv-4.5.1/build/bin/libopencv_*.dll
+     INCLUDEPATH += $$PWD/opencv-4.5.1/build/install/include \
+                    $$PWD/eopencv-4.5.1//opencv-4.5.1/build/install/include/opencv2 \
 }
-
 macx {
     LIBS += /Users/huangyaode/code/opencv/build_arm64/lib
-
     INCLUDEPATH += /opt/homebrew/Cellar/opencv/4.5.5_1/include/opencv4
 }
 
