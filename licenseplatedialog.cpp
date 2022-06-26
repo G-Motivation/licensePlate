@@ -4,11 +4,12 @@ namespace fs = std::experimental::filesystem::v1;
 #define cameraPage 0
 #define payPage 1
 
-bool licensePlateDialog::setUpYOLO( std::shared_ptr<YOLO> yolo)
+bool licensePlateDialog::setUpYOLO( std::shared_ptr<YOLO>& yolo)
 {
     try
     {
-        const std::string YOLO_MODEL = ".//model";
+        const std::string current_path = fs::current_path().string();
+        const std::string YOLO_MODEL = current_path + "//yolo//model";
         CV_DNN_REGISTER_LAYER_CLASS(Exp, ExpLayer);
         Net_config yolo_nets[1] = {
             { 0.5f, 0.3f, 320, 320, YOLO_MODEL + "//coco.names", YOLO_MODEL+ "//yolo-fastest-xl.onnx",
@@ -30,17 +31,19 @@ bool licensePlateDialog::setUpYOLO( std::shared_ptr<YOLO> yolo)
 }
 bool licensePlateDialog::detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO> yolo)
 {
-    if (!yolo || img.empty()) return false;
-    const string kWinName = "Deep learning object detection in OpenCV";
-    cv::namedWindow(kWinName, WINDOW_KEEPRATIO);
+    try {
+          if (!yolo || img.empty()) return false;
+          const string kWinName = "Deep learning object detection in OpenCV";
+          cv::namedWindow(kWinName, WINDOW_KEEPRATIO);
 
-    auto yolo_model = yolo->getptr();
-    yolo_model->setcapSize(img.cols, img.rows);
-    yolo_model->detect(img);
-    imshow(kWinName, img);
-    waitKey(0);
-    cv::destroyAllWindows();
-
+          yolo->setcapSize(img.cols, img.rows);
+          yolo->detect(img);
+          imshow(kWinName, img);
+          waitKey(0);
+          cv::destroyAllWindows();
+    } catch(...) {
+        return true;
+    }
     return true;
 }
 licensePlateDialog::licensePlateDialog(QWidget* parent)

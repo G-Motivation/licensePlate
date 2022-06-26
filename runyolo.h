@@ -6,7 +6,7 @@
 namespace runYolo
 {
     std::shared_ptr<YOLO> yolo = nullptr;
-std::unique_ptr<licensePlateDialog> w = nullptr;
+    std::unique_ptr<licensePlateDialog> w = nullptr;
 }
 
 #endif // RUNYOLO_H

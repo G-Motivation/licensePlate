@@ -23,8 +23,8 @@ public:
 public:
     void StartCamera();
     void StopCamera();
-    bool setUpYOLO(std::shared_ptr<YOLO>);
-    bool detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO>);
+    bool setUpYOLO(std::shared_ptr<YOLO>& yolo);
+    bool detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO> yolo);
 private slots:
     void processCapturedImage(int requestId, const QImage& img);
 private:
