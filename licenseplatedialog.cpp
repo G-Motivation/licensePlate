@@ -29,20 +29,20 @@ bool licensePlateDialog::setUpYOLO( std::shared_ptr<YOLO>& yolo)
 
     return true;
 }
-bool licensePlateDialog::detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO> yolo)
+bool licensePlateDialog::detectbyYOLO(cv::Mat& img,  std::shared_ptr<YOLO>& yolo)
 {
     try {
           if (!yolo || img.empty()) return false;
           const string kWinName = "Deep learning object detection in OpenCV";
           cv::namedWindow(kWinName, WINDOW_KEEPRATIO);
-
-          yolo->setcapSize(img.cols, img.rows);
-          yolo->detect(img);
-          imshow(kWinName, img);
+          cv::Mat result_mat = img.clone();
+          yolo->setcapSize(result_mat.cols, result_mat.rows);
+          yolo->detect(result_mat);
+          imshow(kWinName, result_mat);
           waitKey(0);
           cv::destroyAllWindows();
     } catch(...) {
-        return true;
+        return false;
     }
     return true;
 }

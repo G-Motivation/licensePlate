@@ -42,8 +42,8 @@ void YOLO::postprocess(Mat& frame, const vector<Mat>& outs)   // Remove the boun
 	for (size_t i = 0; i < outs.size(); ++i) {
 		// Scan through all the bounding boxes output from the network and keep only the
 		// ones with high confidence scores. Assign the box's class label as the class
-		// with the highest score for the box.
-		float* data = (float*)outs[i].data;
+        // with the highest score for the box.
+        auto data = reinterpret_cast<float*>(outs[i].data);
 		for (int j = 0; j < outs[i].rows; ++j, data += outs[i].cols) {
 			Mat score = outs[i].row(j).colRange(5, outs[i].cols);		// 使用80个类别的概率作为score
 			Point classIdPoint;

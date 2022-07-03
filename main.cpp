@@ -11,7 +11,7 @@ TEST(licensePlateDialog, yoloFile)
 }
 TEST(licensePlateDialog, yoloDetect)
 {
-   cv::Mat image = cv::imread("C:/Users/Willy/Desktop/08160018402.jpg", 1);
+   cv::Mat image = cv::imread("C:/Users/Willy/Desktop/191103-13921-1-apGNK.png", 1);
    EXPECT_TRUE(runYolo::w->detectbyYOLO(image, runYolo::yolo));
 }
 #endif
@@ -29,5 +29,5 @@ int main(int argc, char *argv[])
     // show the image on window
     cv::imshow("My Image", image);
 #endif
-    return (!RUN_ALL_TESTS() && a.exec());
+    return (RUN_ALL_TESTS() && a.exec());
 }
