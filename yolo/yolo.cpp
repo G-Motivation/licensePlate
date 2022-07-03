@@ -50,11 +50,11 @@ void YOLO::postprocess(Mat& frame, const vector<Mat>& outs)   // Remove the boun
 			double max_score;
 			// Get the value and location of the maximum score
 			minMaxLoc(score, 0, &max_score, 0, &classIdPoint);		// 查询score中最大的元素及其位置
-			if (data[4] > this->confThreshold) {		// data[4]是置信度
-				int centerX = (int)(data[0] * this->scaleWidth);		// yolo的输出位置是相对于模型输入图像大小的
-				int centerY = (int)(data[1] * this->scaleHeight);		// 因此需要进行简单的缩放
-				int width = (int)(data[2] * this->scaleWidth);
-				int height = (int)(data[3] * this->scaleHeight);
+            if (data[4] > this->confThreshold) {		// data[4]是置信度
+                int centerX = static_cast<int>(data[0] * this->scaleWidth);		// yolo的输出位置是相对于模型输入图像大小的
+                int centerY = static_cast<int>(data[1] * this->scaleHeight);		// 因此需要进行简单的缩放
+                int width   = static_cast<int>(data[2] * this->scaleWidth);
+                int height  = static_cast<int>(data[3] * this->scaleHeight);
 				int left = centerX - width / 2;
 				int top = centerY - height / 2;
 
