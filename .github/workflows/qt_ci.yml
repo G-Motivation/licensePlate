@@ -1,5 +1,5 @@
  - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: G-Motivation/licensePlate
       with:
         version: '5.15.2'
         host: 'windows'
