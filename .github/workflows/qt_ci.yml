@@ -1,12 +1,17 @@
-name: CI/CD Pipeline
-on: [push]
-jobs:
-  Commit-Stage:
-    runs-on: self-hosted
-    steps:
-      - name: Checking out repository ${{ github.repository }}
-        uses: actions/checkout@v3
-      - name: Changing to working directory ${{ github.workspace }}
-        run: cd ${{ github.workspace }}
-      - name: Running FossCompliancePipeline with CTest
-        run: ctest -S ./FossCompliancePipeline.cmake
+image:
+  name: darkmattercoder/qt-build:5.13.0
+  entrypoint: [""]
+
+stages:
+   - Build
+   - Run
+
+Build code:
+   stage: Build
+   script:
+      - qmake licensePlate.pro -spec linux-g++
+
+Nominal Run:
+   stage: Run
+   script:
+      - ./licensePlate
