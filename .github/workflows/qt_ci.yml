@@ -1,20 +1,12 @@
- - name: Install Qt
-      uses: G-Motivation/licensePlate
-      with:
-        version: '5.15.2'
-        host: 'windows'
-        target: 'desktop'
-        arch: 'MinGW 64-bit'
-        dir: '${{ github.workspace }}/example/'
-        install-deps: 'true'
-        modules: 'qtcharts qtwebengine'
-        archives: 'qtbase qtsvg'
-        cache: 'false'
-        cache-key-prefix: 'install-qt-action'
-        setup-python: 'true'
-        tools: 'tools_ifw tools_qtcreator,qt.tools.qtcreator'
-        set-env: 'true'
-        tools-only: 'false'
-        aqtversion: '==2.1.*'
-        py7zrversion: '==0.19.*'
-        extra: '--external 7z'
+name: CI/CD Pipeline
+on: [push]
+jobs:
+  Commit-Stage:
+    runs-on: self-hosted
+    steps:
+      - name: Checking out repository ${{ github.repository }}
+        uses: actions/checkout@v3
+      - name: Changing to working directory ${{ github.workspace }}
+        run: cd ${{ github.workspace }}
+      - name: Running FossCompliancePipeline with CTest
+        run: ctest -S ./FossCompliancePipeline.cmake
