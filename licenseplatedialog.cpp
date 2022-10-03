@@ -23,6 +23,17 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     connect(ui->m_btnStop, &QPushButton::clicked, this, &licensePlateDialog::StopCamera);
 }
 
+void licensePlateDialog::ProcessCapturedImage(int requestId,  QImage img)
+{
+    Q_UNUSED(requestId);
+    const QImage ScaleImg = img.scaled(_cameraViewFinder->size(),
+                                                    Qt::KeepAspectRatio,
+                                                    Qt::SmoothTransformation);
+    const QPixmap Pixm = QPixmap::fromImage(ScaleImg);
+    Pixm.save("C:/Users/Willy/Desktop/xx.jpg");
+
+}
+
 void licensePlateDialog::StartCamera()
 {
     _camera->start();
@@ -42,7 +53,13 @@ void licensePlateDialog::StartCamera()
         "\n camera.isAvailable: " << _camera->isAvailable() <<
         "\n viewfinder.isEnabled: "<< _cameraViewFinder->isEnabled() <<
         "\n viewfinder.isVisible: " <<_cameraViewFinder->isVisible();
-
+        //Capture image from camera
+        _imageCapture = new QCameraImageCapture(_camera);
+        _imageCapture->capture();
+        connect(_imageCapture, SIGNAL(imageCaptured(int,QImage)),
+                                this, SLOT(ProcessCapturedImage(int,QImage)));
+        delete  _imageCapture;
+        _imageCapture = nullptr;
 }
 
 void licensePlateDialog::StopCamera()

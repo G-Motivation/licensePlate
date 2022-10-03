@@ -1,11 +1,11 @@
 /********************************************************************************
 ** Form generated from reading UI file 'licenseplatedialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.12.2
+** Created by: Qt User Interface Compiler version 5.15.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
-/**/
+
 #ifndef UI_LICENSEPLATEDIALOG_H
 #define UI_LICENSEPLATEDIALOG_H
 
@@ -85,9 +85,9 @@ public:
 
     void retranslateUi(QDialog *licensePlateDialog)
     {
-        licensePlateDialog->setWindowTitle(QApplication::translate("licensePlateDialog", "licensePlateDialog", nullptr));
-        m_btnStart->setText(QApplication::translate("licensePlateDialog", "Camera Start", nullptr));
-        m_btnStop->setText(QApplication::translate("licensePlateDialog", "Camera Stop", nullptr));
+        licensePlateDialog->setWindowTitle(QCoreApplication::translate("licensePlateDialog", "licensePlateDialog", nullptr));
+        m_btnStart->setText(QCoreApplication::translate("licensePlateDialog", "Camera Start", nullptr));
+        m_btnStop->setText(QCoreApplication::translate("licensePlateDialog", "Camera Stop", nullptr));
     } // retranslateUi
 
 };
