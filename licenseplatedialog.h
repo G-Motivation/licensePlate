@@ -7,6 +7,8 @@
 #include <QVBoxLayout>
 #include <QCameraInfo>
 #include <QCameraImageCapture>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
 QT_BEGIN_NAMESPACE
 namespace Ui { class licensePlateDialog; }
 QT_END_NAMESPACE
@@ -18,10 +20,11 @@ class licensePlateDialog : public QDialog
 public:
     explicit licensePlateDialog(QWidget *parent = nullptr);
     ~licensePlateDialog();
-private slots:
+private:
     void StartCamera();
     void StopCamera();
     void ProcessCapturedImage(int requestId, QImage img);
+    void CaptureImage();
 private:
     Ui::licensePlateDialog *ui;
     QCamera* _camera;

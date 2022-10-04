@@ -33,6 +33,8 @@ public:
     QSpacerItem *horizontalSpacer;
     QPushButton *m_btnStart;
     QPushButton *m_btnStop;
+    QPushButton *m_btnCapture;
+    QSpacerItem *horizontalSpacer_2;
     QWidget *payPage;
 
     void setupUi(QDialog *licensePlateDialog)
@@ -42,7 +44,7 @@ public:
         licensePlateDialog->resize(810, 600);
         stackedWidget = new QStackedWidget(licensePlateDialog);
         stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-        stackedWidget->setGeometry(QRect(10, 10, 771, 581));
+        stackedWidget->setGeometry(QRect(20, 10, 771, 581));
         cameraPage = new QWidget();
         cameraPage->setObjectName(QString::fromUtf8("cameraPage"));
         m_camArea = new QScrollArea(cameraPage);
@@ -55,7 +57,7 @@ public:
         m_camArea->setWidget(scrollAreaWidgetContents);
         layoutWidget = new QWidget(cameraPage);
         layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(170, 430, 351, 71));
+        layoutWidget->setGeometry(QRect(200, 410, 351, 71));
         horizontalLayout = new QHBoxLayout(layoutWidget);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         horizontalLayout->setContentsMargins(0, 0, 0, 0);
@@ -73,6 +75,15 @@ public:
 
         horizontalLayout->addWidget(m_btnStop);
 
+        m_btnCapture = new QPushButton(layoutWidget);
+        m_btnCapture->setObjectName(QString::fromUtf8("m_btnCapture"));
+
+        horizontalLayout->addWidget(m_btnCapture);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_2);
+
         stackedWidget->addWidget(cameraPage);
         payPage = new QWidget();
         payPage->setObjectName(QString::fromUtf8("payPage"));
@@ -88,6 +99,7 @@ public:
         licensePlateDialog->setWindowTitle(QCoreApplication::translate("licensePlateDialog", "licensePlateDialog", nullptr));
         m_btnStart->setText(QCoreApplication::translate("licensePlateDialog", "Camera Start", nullptr));
         m_btnStop->setText(QCoreApplication::translate("licensePlateDialog", "Camera Stop", nullptr));
+        m_btnCapture->setText(QCoreApplication::translate("licensePlateDialog", "Capture", nullptr));
     } // retranslateUi
 
 };

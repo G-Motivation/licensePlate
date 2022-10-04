@@ -16,7 +16,7 @@
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>10</y>
      <width>771</width>
      <height>581</height>
@@ -49,8 +49,8 @@
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>430</y>
+       <x>200</x>
+       <y>410</y>
        <width>351</width>
        <height>71</height>
       </rect>
@@ -82,6 +82,26 @@
          <string>Camera Stop</string>
         </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="m_btnCapture">
+        <property name="text">
+         <string>Capture</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
       </item>
      </layout>
     </widget>
