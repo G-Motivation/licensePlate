@@ -25,11 +25,14 @@ private:
     void StopCamera();
     void ProcessCapturedImage(int requestId, QImage img);
     void CaptureImage();
+    void PaymentBtnClicked();
+    void backSpaceforTXT();
 private:
     Ui::licensePlateDialog *ui;
     QCamera* _camera;
     QCameraViewfinder* _cameraViewFinder;
     QVBoxLayout* _layout;
     QCameraImageCapture* _imageCapture;
+    QString _resultStr;
 };
 #endif // LICENSEPLATEDIALOG_H
