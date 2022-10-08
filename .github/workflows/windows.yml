@@ -48,8 +48,6 @@ jobs:
       - uses: actions/checkout@v1
         with:
           fetch-depth: 1
-          path:
-           ${GITHUB_WORKSPACE}
       - name: Build something requiring CL.EXE
         uses: ilammy/msvc-dev-cmd@v1
       # compile msvc
