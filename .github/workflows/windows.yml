@@ -1,8 +1,7 @@
 # windows.yml
 name: Windows
-env: |
-          echo "ACTIONS_ALLOW_UNSECURE_COMMANDS=true" >> $GITHUB_ENV
-          echo "DEPLOYMENT_STATUS=skipped" >> $GITHUB_ENV
+env: 
+   ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
 on: 
   # push代码时触发workflow
   push:
