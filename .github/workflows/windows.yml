@@ -50,6 +50,12 @@ jobs:
           fetch-depth: 1
       - name: Build something requiring CL.EXE
         uses: ilammy/msvc-dev-cmd@v1
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+         perl-version: '5.32'
+         distribution: strawberry
+      - run: cpanm --installdeps .
+      - run: prove -lv t
       # compile msvc
       - name: Make a Makefile and build application    
         shell: cmd
@@ -57,4 +63,5 @@ jobs:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
           qmake
+          perl -pi -e 's/^  */\t/' Makefile
           make       
