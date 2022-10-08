@@ -51,25 +51,10 @@ jobs:
       - name: Build something requiring CL.EXE
         uses: ilammy/msvc-dev-cmd@v1
       # compile msvc
-      - name: Make a Makefile    
+      - name: Make a Makefile and build application    
         shell: cmd
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
           qmake
-      - name: CMake
-        uses: ashutoshvarma/action-cmake-build@master
-        with:
-          build-dir: ${{ runner.workspace }}/licensePlate/build
-          # will set the CC & CXX for cmake
-          cc: gcc
-          cxx: g++
-          build-type: Release
-          # Extra options pass to cmake while configuring project
-          configure-options: -DCMAKE_C_FLAGS=-w32 -DPNG_INCLUDE=OFF
-          run-test: false
-          # install the build using cmake --install
-          install-build: true
-          # run build using '-j [parallel]' to use multiple threads to build
-          parallel: 14
-        
+          make build        
