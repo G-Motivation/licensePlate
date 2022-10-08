@@ -46,9 +46,7 @@ jobs:
             msvc_arch: x64
     # 步骤
     steps:
-     - uses: actions/checkout@v1
-       with:
-          fetch-depth: 1
+     - uses: actions/checkout@v3
      - name: Install qt
        run: | 
         choco install qt5-default
