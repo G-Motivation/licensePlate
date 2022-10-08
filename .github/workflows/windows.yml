@@ -2,7 +2,7 @@
 name: Windows
 env: 
    ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-on: 
+on:
   # push代码时触发workflow
   push:
     # 忽略README.md
@@ -44,27 +44,11 @@ jobs:
             msvc_arch: x64
     # 步骤
     steps:
-      # 安装Qt
-      - name: Install Qt
-        # 使用外部action。这个action专门用来安装Qt
-        uses: jurplel/install-qt-action@v2.0.0
-        with:
-          # Version of Qt to install
-          version: ${{ matrix.qt_ver }}
-          # Target platform for build
-          target: ${{ matrix.qt_target }}
-          # Architecture for Windows/Android
-          arch: ${{ matrix.qt_arch }}
-      # 拉取代码
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
-      # 编译msvc
-      - name: build-msvc
-        shell: cmd
-        env:
-          vc_arch: ${{ matrix.msvc_arch }}
-        run: |
-          call "C:/Program Files/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
-          qmake
-          nmake
+     - name: Install qt
+       run: | 
+        choco install qt5-default
+     - uses: actions/checkout@v2
+     - name: build
+       run: |
+          C:\Qt\5.15.2\mingw81_64\bin\qmake.exe ..
+          make.exe
