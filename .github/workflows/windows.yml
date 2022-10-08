@@ -23,11 +23,11 @@ jobs:
     strategy:
       # 矩阵配置
       matrix:
-        qt_ver: [5.9.8,5.12.6]
+        qt_ver: [5.9.8]
         qt_target: [desktop]
         # mingw用不了
         # qt_arch: [win64_msvc2017_64, win32_msvc2017, win32_mingw53,win32_mingw73]
-        qt_arch: [win64_msvc2017_64, win32_msvc2017]
+        qt_arch: [win64_msvc2017_64]
         # 从矩阵中除外的配置
         exclude: 
           # 不存在5.9.8-win32_msvc2017的版本
@@ -42,8 +42,6 @@ jobs:
         include:
           - qt_arch: win64_msvc2017_64
             msvc_arch: x64
-          - qt_arch: win32_msvc2017
-            msvc_arch: x86
     # 步骤
     steps:
       # 安装Qt
@@ -67,6 +65,6 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
+          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall64.bat"
           qmake
           nmake
