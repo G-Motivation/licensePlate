@@ -44,10 +44,12 @@ jobs:
             msvc_arch: x64
     # 步骤
     steps:
+     - uses: actions/checkout@v1
+       with:
+          fetch-depth: 1
      - name: Install qt
        run: | 
         choco install qt5-default
-     - uses: actions/checkout@v2
      - name: build
        run: |
           C:\Qt\5.15.2\mingw81_64\bin\qmake.exe ..
