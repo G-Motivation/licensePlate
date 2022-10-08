@@ -25,8 +25,8 @@ FORMS += \
     licenseplatedialog.ui
 
 win32: {
-    LIBS += OpenCV\bin\libopencv_*.dll
-    INCLUDEPATH += OpenCV\install\include
+    LIBS += $$PWD/OpenCV/bin/libopencv_*.dll
+    INCLUDEPATH += $$PWD/OpenCV/install/include
 }
 
 macx {
