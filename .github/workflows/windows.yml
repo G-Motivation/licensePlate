@@ -69,6 +69,4 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvarsall.bat" %vc_arch%
           qmake
-          nmake
