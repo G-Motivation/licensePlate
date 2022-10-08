@@ -60,7 +60,7 @@ jobs:
         with:
           fetch-depth: 1
           path:
-           ${GITHUB_WORKSPACE}/OpenCV/bin/libopencv_*.dll
+           ${GITHUB_WORKSPACE}/OpenCV/bin
       - name: Build something requiring CL.EXE
         uses: ilammy/msvc-dev-cmd@v1
       # 编译msvc
