@@ -27,6 +27,7 @@ private:
     void CaptureImage();
     void PaymentBtnClicked();
     void backSpaceforTXT();
+    void clearTXT();
 private:
     Ui::licensePlateDialog *ui;
     QCamera* _camera;

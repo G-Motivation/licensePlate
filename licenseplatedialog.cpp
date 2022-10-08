@@ -25,6 +25,7 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     connect(ui->m_btnStop, &QPushButton::clicked, this, &licensePlateDialog::StopCamera);
     connect(ui->m_btnCapture, &QPushButton::clicked, this, &licensePlateDialog::CaptureImage);
     connect(ui->m_btnBack, &QPushButton::clicked, this, &licensePlateDialog::backSpaceforTXT);
+    connect(ui->m_btnClear, &QPushButton::clicked, this,  &licensePlateDialog::clearTXT);
 
     std::vector<QPushButton*> btns {ui->m_btn0, ui->m_btn1, ui->m_btn2, ui->m_btn3, ui->m_btn4, ui->m_btn5, ui->m_btn6, ui->m_btn7,
                                                               ui->m_btn8, ui->m_btn9, ui->m_btnA, ui->m_btnB, ui->m_btnC, ui->m_btnD, ui->m_btnE, ui->m_btnF,
@@ -76,6 +77,12 @@ void qimageToMat(const QImage& image, cv::OutputArray out)
             break;
         }
     }
+}
+
+void licensePlateDialog::clearTXT()
+{
+    ui->m_txtResult->clear();
+     _resultStr = ui->m_txtResult->toPlainText();
 }
 
 void licensePlateDialog::backSpaceforTXT()
