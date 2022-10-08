@@ -57,4 +57,4 @@ jobs:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
           qmake
-          make build        
+          make       
