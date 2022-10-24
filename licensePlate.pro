@@ -19,13 +19,16 @@ SOURCES += \
     main.cpp \
 
 HEADERS += \
-    ui_licenseplatedialog.h
+    ui_licenseplatedialog.h \
+    yolo_v2_class.hpp
 
 FORMS += \
     licenseplatedialog.ui
 
 win32: {
-    LIBS += $$PWD/OpenCV/bin/libopencv_*.dll
+    LIBS += $$PWD/OpenCV/bin/libopencv_*.dll \
+                   -L$$quote(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/lib/x64) -lcublas -lcuda -lcudadevrt -lcudart -lcudart_static -lOpenCL \
+                   -L$${PWD} -lyolo_cpp_dll
     INCLUDEPATH += $$PWD/OpenCV/install/include
 }
 
