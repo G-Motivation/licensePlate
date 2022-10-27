@@ -9,6 +9,8 @@
 #include <QCameraImageCapture>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <yolo_v2_class.hpp>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class licensePlateDialog; }
 QT_END_NAMESPACE
@@ -29,11 +31,18 @@ private:
     void backSpaceforTXT();
     void clearTXT();
 private:
-    Ui::licensePlateDialog *ui;
-    QCamera* _camera;
-    QCameraViewfinder* _cameraViewFinder;
-    QVBoxLayout* _layout;
-    QCameraImageCapture* _imageCapture;
-    QString _resultStr;
+    Ui::licensePlateDialog *ui = nullptr;
+    QCamera* _camera = nullptr;
+    QCameraViewfinder* _cameraViewFinder = nullptr;
+    QVBoxLayout* _layout = nullptr;
+    QCameraImageCapture* _imageCapture = nullptr;
+    QString _resultStr = "";
+    Detector* _detector = nullptr;
+    std::string _cur_path = "";
+    std::string _cfg = "";
+    std::string _weight =  "";
+    std::string _labels =  "";
+    std::vector<std::string> _classnames {};
+    cv::Mat _testImg;
 };
 #endif // LICENSEPLATEDIALOG_H

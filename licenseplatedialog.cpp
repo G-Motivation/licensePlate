@@ -1,5 +1,7 @@
 #include "licenseplatedialog.h"
 #include "ui_licenseplatedialog.h"
+#include<fstream>
+#include<filesystem>
 #define cameraPage 0
 #define payPage 1
 
@@ -36,6 +38,12 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
    {
         connect(btn, &QPushButton::clicked, this, &licensePlateDialog::PaymentBtnClicked);
    }
+
+   _cur_path = std::filesystem::current_path().u8string();
+   _cfg = _cur_path + "/model/yolov2.cfg";
+   _weight = _cur_path + "/model/yolov3-tiny_140000.weights";
+   _labels = _cur_path + "/model/voc.names";
+  // _detector =new Detector(_cfg, _weight);
 }
 void qimageToMat(const QImage& image, cv::OutputArray out)
 {
@@ -221,8 +229,7 @@ void licensePlateDialog::ProcessCapturedImage(int requestId,  QImage img)
     const QImage ScaleImg = img.scaled( ui->m_camArea->size(),
                                                     Qt::KeepAspectRatio,
                                                     Qt::SmoothTransformation);
-    cv::Mat out;
-    qimageToMat(ScaleImg,  out);
+    qimageToMat(ScaleImg,  _testImg);
 }
 
 void licensePlateDialog::StartCamera()
@@ -254,6 +261,16 @@ void licensePlateDialog::StopCamera()
 void licensePlateDialog::CaptureImage()
 {
       _imageCapture->capture();
+      std::ifstream labelfile(_labels);
+      if(labelfile.is_open() && !_testImg.empty())//Make sure test image is ready
+      {
+          std::string line;
+          while(std::getline(labelfile, line))
+          {
+              _classnames.push_back(line);
+          }
+      }
+
       ui->stackedWidget->setCurrentIndex(payPage);
 }
 

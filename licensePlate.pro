@@ -26,10 +26,25 @@ FORMS += \
     licenseplatedialog.ui
 
 win32: {
-    LIBS += $$PWD/OpenCV/bin/libopencv_*.dll \
+    CONFIG(debug, debug|release) {
+        OPENCV_LIB = lib/opencv_world430d.lib
+    }
+    CONFIG(release, debug|release) {
+        OPENCV_LIB = lib/opencv_world430.lib
+    }
+    LIBS += $$PWD/OpenCV/$$OPENCV_LIB \
                    -L$$quote(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/lib/x64) -lcublas -lcuda -lcudadevrt -lcudart -lcudart_static -lOpenCL \
                    -L$${PWD} -lyolo_cpp_dll
-    INCLUDEPATH += $$PWD/OpenCV/install/include
+    INCLUDEPATH += $$PWD/OpenCV/include
+
+   # debug { DESTDIR = opencv_world430d.dll }
+    #release { DESTDIR = opencv_world430.dll }
+
+   # opencvlibs.path = $$PWD/OpenCV/bin
+    #opencvlibs.files = $$QMAKE_LIBDIR_QT/$$DESTDIR
+    #opencvlibs.CONFIG = no_check_exist
+
+   INSTALLS += opencvlibs
 }
 
 macx {
