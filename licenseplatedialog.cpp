@@ -4,6 +4,7 @@
 #include<filesystem>
 #define cameraPage 0
 #define payPage 1
+namespace fs = std::filesystem;
 
 licensePlateDialog::licensePlateDialog(QWidget *parent)
     : QDialog(parent)
@@ -39,11 +40,17 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
         connect(btn, &QPushButton::clicked, this, &licensePlateDialog::PaymentBtnClicked);
    }
 
-   _cur_path = std::filesystem::current_path().u8string();
-   _cfg = _cur_path + "/model/yolov2.cfg";
-   _weight = _cur_path + "/model/yolov3-tiny_140000.weights";
-   _labels = _cur_path + "/model/voc.names";
-  // _detector =new Detector(_cfg, _weight);
+   _cur_path =  fs::current_path().u8string() + "/../licensePlate";
+   if(fs::exists(_cur_path))
+   {
+       _cfg = _cur_path + "/model/yolov2.cfg";
+       _weight = _cur_path + "/model/yolov3-tiny_140000.weights";
+       _labels = _cur_path + "/model/voc.names";
+       _detector =new Detector(_cfg, _weight);
+   }
+   else
+       _detector = nullptr;
+
 }
 void qimageToMat(const QImage& image, cv::OutputArray out)
 {
@@ -262,7 +269,7 @@ void licensePlateDialog::CaptureImage()
 {
       _imageCapture->capture();
       std::ifstream labelfile(_labels);
-      if(labelfile.is_open() && !_testImg.empty())//Make sure test image is ready
+      if(labelfile.is_open() && !_testImg.empty() && !_detector)//Make sure test image is ready and darknet is ready
       {
           std::string line;
           while(std::getline(labelfile, line))
