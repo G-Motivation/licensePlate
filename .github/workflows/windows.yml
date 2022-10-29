@@ -33,6 +33,8 @@ jobs:
           - qt_arch: win64_msvc2017_64
             msvc_arch: x64
     steps:
+      # pull code
+      - uses: actions/checkout@v2
       # install Qt
       - name: Install Qt
         # use external action for installing Qt
@@ -44,10 +46,6 @@ jobs:
           target: ${{ matrix.qt_target }}
           # Architecture for Windows/Android
           arch: ${{ matrix.qt_arch }}
-      # pull code
-      - uses: actions/checkout@v1
-        with:
-          fetch-depth: 1
       - name: Build something requiring CL.EXE
         uses: ilammy/msvc-dev-cmd@v1
       # compile msvc
