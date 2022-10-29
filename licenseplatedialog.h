@@ -7,8 +7,8 @@
 #include <QtWidgets/QVBoxLayout>
 #include <QtMultimedia/QCameraInfo>
 #include <QtMultimedia/QCameraImageCapture>
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
+#include <OpenCV/install/include/opencv2/core/core.hpp>
+#include <OpenCV/install/include/opencv2/highgui/highgui.hpp>
 QT_BEGIN_NAMESPACE
 namespace Ui { class licensePlateDialog; }
 QT_END_NAMESPACE
