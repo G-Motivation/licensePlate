@@ -3,7 +3,7 @@
 
 #include <QtWidgets/QDialog>
 #include <QtMultimedia/QCamera>
-#include <QtMultimedia/QCameraViewfinder>
+#include <QMultimediaWidgets/QCameraViewfinder>
 #include <QtWidgets/QVBoxLayout>
 #include <QtMultimedia/QCameraInfo>
 #include <QtMultimedia/QCameraImageCapture>
