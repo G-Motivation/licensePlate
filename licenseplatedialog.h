@@ -1,7 +1,7 @@
 #ifndef LICENSEPLATEDIALOG_H
 #define LICENSEPLATEDIALOG_H
 
-#include <QDialog>
+#include <QtWidgets/QDialog>
 #include <QCamera>
 #include <QCameraViewfinder>
 #include <QVBoxLayout>
