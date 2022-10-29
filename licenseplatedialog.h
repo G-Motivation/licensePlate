@@ -2,11 +2,11 @@
 #define LICENSEPLATEDIALOG_H
 
 #include <QtWidgets/QDialog>
-#include <QCamera>
-#include <QCameraViewfinder>
-#include <QVBoxLayout>
-#include <QCameraInfo>
-#include <QCameraImageCapture>
+#include <QtMultimedia/QCamera>
+#include <QtMultimedia/QCameraViewfinder>
+#include <QtWidgets/QVBoxLayout>
+#include <QtMultimedia/QCameraInfo>
+#include <QtMultimedia/QCameraImageCapture>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 QT_BEGIN_NAMESPACE
