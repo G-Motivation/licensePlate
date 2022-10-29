@@ -56,4 +56,6 @@ jobs:
         env:
           vc_arch: ${{ matrix.msvc_arch }}
         run: |
-          qmake
+          qmake -makefile
+          make
+          
