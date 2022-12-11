@@ -5,6 +5,7 @@ QT       += core gui \
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++17
+CONFIG += debug_and_release
 
 QMAKE_CXXFLAGS_RELEASE = $$QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO
 QMAKE_LFLAGS_RELEASE = $$QMAKE_LFLAGS_RELEASE_WITH_DEBUGINFO
@@ -28,13 +29,18 @@ FORMS += \
 win32: {
     CONFIG(debug, debug|release) {
         OPENCV_LIB = lib/opencv_world430d.lib
+        YOLOV3_LIB = yolov3Lib/Debug/yolo_cpp_dll.lib
     }
     CONFIG(release, debug|release) {
         OPENCV_LIB = lib/opencv_world430.lib
-    }
+        YOLOV3_LIB = yolov3Lib/yolo_cpp_dll.lib
+ }
+
     LIBS += $$PWD/OpenCV/$$OPENCV_LIB \
-                   -L$$quote(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/lib/x64) -lcublas -lcuda -lcudadevrt -lcudart -lcudart_static -lOpenCL \
-                   -L$${PWD} -lyolo_cpp_dll
+                   $$PWD/$$YOLOV3_LIB \
+                   -L$$quote(C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v11.7/lib/x64) -lcublas -lcuda -lcudadevrt -lcudart -lcudart_static -lOpenCL
+
+
     INCLUDEPATH += $$PWD/OpenCV/include
 
    # debug { DESTDIR = opencv_world430d.dll }
