@@ -49,22 +49,7 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
           this,
           &licensePlateDialog::clearTXT);
 
-  std::vector<QPushButton *> btns { ui->m_btn0, ui->m_btn1, ui->m_btn2,
-                                    ui->m_btn3, ui->m_btn4, ui->m_btn5,
-                                    ui->m_btn6, ui->m_btn7,
-                                    ui->m_btn8, ui->m_btn9, ui->m_btnA,
-                                    ui->m_btnB, ui->m_btnC, ui->m_btnD,
-                                    ui->m_btnE, ui->m_btnF,
-                                    ui->m_btnG, ui->m_btnH, ui->m_btnI,
-                                    ui->m_btnJ, ui->m_btnK, ui->m_btnL,
-                                    ui->m_btnM, ui->m_btnN,
-                                    ui->m_btnO, ui->m_btnP, ui->m_btnQ,
-                                    ui->m_btnR, ui->m_btnS, ui->m_btnT,
-                                    ui->m_btnU, ui->m_btnV,
-                                    ui->m_btnW, ui->m_btnX, ui->m_btnY,
-                                    ui->m_btnZ };
-
-  for (auto& btn : btns)
+  for (auto& btn : ui->m_buttons)
     {
       connect(btn,
               &QPushButton::clicked,
