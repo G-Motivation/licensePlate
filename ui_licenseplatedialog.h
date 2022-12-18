@@ -109,12 +109,12 @@ void setupUi(QDialog *licensePlateDialog)
                                 "m_btnU", "m_btnV", "m_btnW", "m_btnX", "m_btnY",
                                 "m_btnZ" });
 
-  const int numButtons = 16;
+  const int numButtons = m_buttonNames.size();
   const int buttonWidth = 71;
   const int buttonHeight = 51;
   const int numButtonsPerRow = 9;
 
-  for (int i = 0; i < m_buttonNames.size(); ++i)
+  for (int i = 0; i < numButtons; ++i)
     {
       // Create a new QPushButton and set its object name and geometry
       QPushButton* button = new QPushButton(payPage);
