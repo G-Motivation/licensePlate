@@ -198,10 +198,10 @@ void licensePlateDialog::CaptureImage()
   _imageCapture->capture();
   std::ifstream labelfile(_labels);
 
-  if (labelfile.is_open() && !_testImg.empty() && !_detector)  // Make sure test
-                                                               // image is ready
-                                                               // and darknet is
-                                                               // ready
+  if (labelfile.is_open() && !_testImg.empty() && _detector)  // Make sure test
+                                                              // image is ready
+                                                              // and darknet is
+                                                              // ready
     {
       std::string line;
 
@@ -209,13 +209,14 @@ void licensePlateDialog::CaptureImage()
         {
           _classnames.push_back(line);
         }
-      /* image_t img;
-         img.h = _testImg.rows;
-         img.w = _testImg.cols;
-         img.c = _testImg.channels();
-         img.data = (float *)(_testImg.data);
-         std::vector<bbox_t> box = _detector->detect(img, 0.7f);
-         std::map<int, std::string> mapPlate;*/
+
+      image_t img;
+      img.h = _testImg.rows;
+      img.w = _testImg.cols;
+      img.c = _testImg.channels();
+      img.data = (float *)(_testImg.data);
+      std::vector<bbox_t> box = _detector->detect(img, 0.7f);
+      std::map<int, std::string> mapPlate;
 
       ui->stackedWidget->setCurrentIndex(payPage);
     }
