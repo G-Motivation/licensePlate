@@ -1,6 +1,7 @@
 QT       += core gui \
             multimedia \
-            multimediawidgets
+            multimediawidgets \
+            sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 

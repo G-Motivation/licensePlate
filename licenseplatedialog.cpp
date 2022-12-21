@@ -6,6 +6,13 @@
 #define payPage 1
 namespace fs = std::filesystem;
 
+typedef struct _LicenseInfo //假定資料庫儲存內容
+{
+  QString ID;
+  QString LicenseNum;
+  QString Dateandtime;
+} LicenseInfo;
+
 licensePlateDialog::licensePlateDialog(QWidget *parent)
   : QDialog(parent)
   , ui(new Ui::licensePlateDialog), _resultStr("")
@@ -57,6 +64,8 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
               &licensePlateDialog::PaymentBtnClicked);
     }
 
+  connect(ui->m_btnOK, &QPushButton::clicked, this, &licensePlateDialog::OK2Pay);
+
   _cur_path = fs::current_path().u8string() + "/../licensePlate";
 
   if (fs::exists(_cur_path))
@@ -68,6 +77,22 @@ licensePlateDialog::licensePlateDialog(QWidget *parent)
     }
   else
     _detector = nullptr;
+}
+
+void licensePlateDialog::OK2Pay()
+{
+  QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+
+  db.setDatabaseName(QDir::currentPath() + "/database/" + "LICENSE.db");
+  if (!db.open())
+    return;
+
+  QSqlQuery query;
+  query.prepare("INSERT INTO LICENSE (id, licenseNum, dateandtime) VALUES (:id, :licenseNum, :dateandtime)");
+  /*query.bindValue(":id", "user4");
+     query.bindValue(":licenseNum", "192.168.1.5");
+     query.bindValue(":dateandtime", "5004");*/
+  query.exec();
 }
 
 void qimageToMat(const QImage& image, cv::OutputArray out)
