@@ -9,6 +9,7 @@
 #include <QCameraImageCapture>
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc.hpp>
 #include <yolo_v2_class.hpp>
 
 #include <QtSql/QSqlDatabase>
@@ -36,6 +37,9 @@ void PaymentBtnClicked();
 void backSpaceforTXT();
 void clearTXT();
 void OK2Pay();
+void draw_boxes(cv::Mat mat_img, std::vector<bbox_t> result_vec, std::vector<std::string> obj_names,
+                int current_det_fps = -1, int current_cap_fps = -1);
+cv::Scalar obj_id_to_color(int obj_id);
 private:
 Ui::licensePlateDialog *ui = nullptr;
 QCamera* _camera = nullptr;
