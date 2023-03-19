@@ -185,10 +185,12 @@ void licensePlateDialog::PaymentBtnClicked()
 void licensePlateDialog::ProcessCapturedImage(int requestId, QImage img)
 {
   Q_UNUSED(requestId);
-  const QImage ScaleImg = img.scaled(ui->m_camArea->size(),
+  /*const QImage ScaleImg = img.scaled(ui->m_camArea->size(),
                                      Qt::KeepAspectRatio,
                                      Qt::SmoothTransformation);
-  qimageToMat(ScaleImg, _testImg);
+     qimageToMat(ScaleImg, _testImg);*/
+
+  _testImg = cv::imread((QDir::currentPath() + "/googletest/" + "TestLicense.jpg").toStdString());
 }
 
 void licensePlateDialog::StartCamera()
@@ -210,6 +212,9 @@ void licensePlateDialog::StartCamera()
     "\n camera.isAvailable: " << _camera->isAvailable() <<
     "\n viewfinder.isEnabled: " << _cameraViewFinder->isEnabled() <<
     "\n viewfinder.isVisible: " << _cameraViewFinder->isVisible();
+
+  _camera->setViewfinder(_cameraViewFinder);
+  _camera->setCaptureMode(QCamera::CaptureViewfinder);
   _camera->start();
 }
 
@@ -292,6 +297,7 @@ void licensePlateDialog::CaptureImage()
       std::vector<bbox_t> box = _detector->detect(img, 0.7f);
       std::map<int, std::string> mapPlate;
 
+      draw_boxes(_testImg, box, _classnames);
 
       ui->stackedWidget->setCurrentIndex(payPage);
     }

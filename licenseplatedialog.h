@@ -28,10 +28,11 @@ Q_OBJECT
 public:
 explicit licensePlateDialog(QWidget *parent = nullptr);
 ~licensePlateDialog();
+private slots:
+void ProcessCapturedImage(int requestId, QImage img);
 private:
 void StartCamera();
 void StopCamera();
-void ProcessCapturedImage(int requestId, QImage img);
 void CaptureImage();
 void PaymentBtnClicked();
 void backSpaceforTXT();
